@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/flapPixel-Js.iml" filepath="$PROJECT_DIR$/.idea/flapPixel-Js.iml" />
+      <module fileurl="file://$PROJECT_DIR$/flapPixel-Js.iml" filepath="$PROJECT_DIR$/flapPixel-Js.iml" />
     </modules>
   </component>
 </project>

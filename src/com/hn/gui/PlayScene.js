@@ -63,9 +63,11 @@ var OverLayer = cc.Layer.extend({
 
     gotoMenuScene: function () {
         cc.log("gotoMenuScene");
+        cc.director.runScene(new MenuScene());
     },
     replay: function () {
         cc.log("replay");
+        cc.director.runScene(new PlayScene());
     }
 });
 var PlayScene = cc.Scene.extend({
@@ -73,7 +75,10 @@ var PlayScene = cc.Scene.extend({
         this._super();
 
         this.addChild(new BgLayerPlayScene());
+        this.scheduleOnce(this.addOverLayer,2.0,"addOverLayer");
+    },
 
-        this.addChild(new OverLayer());
+    addOverLayer:function () {
+        this.addChild(new OverLayer(),10);
     }
 });
