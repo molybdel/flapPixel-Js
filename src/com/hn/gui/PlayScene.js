@@ -23,6 +23,10 @@ var BgLayerPlayScene = cc.Layer.extend({
     }
 });
 
+var ActionLayer = cc.Layer.extend({
+
+});
+
 var OverLayer = cc.Layer.extend({
     scoreLabel: null,
     ctor: function () {
@@ -71,14 +75,18 @@ var OverLayer = cc.Layer.extend({
     }
 });
 var PlayScene = cc.Scene.extend({
+
+    m_bgLayerPlayScene: null,
+    m_overLayerPlayScene: null,
     onEnter: function () {
         this._super();
-
-        this.addChild(new BgLayerPlayScene());
-        this.scheduleOnce(this.addOverLayer,2.0,"addOverLayer");
+        this.m_bgLayerPlayScene = new BgLayerPlayScene();
+        this.addChild(this.m_bgLayerPlayScene);
+        this.scheduleOnce(this.addOverLayer, 2.0, "addOverLayer");
     },
 
-    addOverLayer:function () {
-        this.addChild(new OverLayer(),10);
+    addOverLayer: function () {
+        this.m_overLayerPlayScene = new OverLayer();
+        this.addChild(this.m_overLayerPlayScene, 10);
     }
 });
