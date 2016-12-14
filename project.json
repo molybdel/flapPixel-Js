@@ -13,6 +13,8 @@
 
     "jsList" : [
         "src/resource.js",
-        "src/app.js"
+        "src/app.js",
+        "src/com/hn/gui/MenuScene.js",
+        "src/com/hn/gui/PlayScene.js"
     ]
 }
