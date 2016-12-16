@@ -24,7 +24,8 @@ var BgLayerPlayScene = cc.Layer.extend({
 });
 
 var ActionLayer = cc.Layer.extend({
-    sprite:null,
+    m_pixelObj :null,
+    space:null,
     ctor: function (space) {
         this._super();
         this.space = space;
@@ -32,27 +33,7 @@ var ActionLayer = cc.Layer.extend({
     },
     init: function () {
         this._super();
-        this.sprite = new cc.PhysicsSprite(res.Pixel);
-        this.addChild(this.sprite);
-        var winSize = cc.director.getWinSize();
-
-        var contentSize = this.sprite.getContentSize();
-        // 2. init the runner physic body
-        this.body = new cp.Body(1, cp.momentForBox(1, contentSize.width, contentSize.height));
-        //3. set the position of the runner
-        this.body.p = cc.p(g_runnerStartX, winSize.height / 2);
-        //4. apply impulse to the body
-        this.body.applyImpulse(cp.v(150, 0), cp.v(0, 0));//run speed
-        //5. add the created body to space
-        this.space.addBody(this.body);
-        //6. create the shape for the body
-        this.shape = new cp.BoxShape(this.body, contentSize.width - 14, contentSize.height);
-        this.shape.setElasticity(1);
-        //7. add shape to space
-        this.space.addShape(this.shape);
-        //8. set body to the physic sprite
-        this.sprite.setBody(this.body);
-
+        this.m_pixelObj = new Pixel(this);
     }
 });
 
@@ -136,7 +117,7 @@ var PlayScene = cc.Scene.extend({
 
     onTouchesEnded:function () {
         cc.log("touch");
-        this.space.gravity = cp.v(0, 700);
+        this._node.m_ActionLayerPlayScene.m_pixelObj.flap();
     },
     update: function (dt) {
         // chipmunk step
@@ -152,7 +133,7 @@ var PlayScene = cc.Scene.extend({
         //1. new space object
         this.space = new cp.Space();
         //2. setup the  Gravity
-        this.space.gravity = cp.v(0, -1000);
+        this.space.gravity = cp.v(0, -1500);
 
         // 3. set up Walls
         var wallBottom = new cp.SegmentShape(this.space.staticBody,
