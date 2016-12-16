@@ -15,6 +15,7 @@ var res = {
     ReplayBtn_Selected:"res/ReplayBtn_Selected.png",
     Title:"res/Title.png",
     Font_Minecrafter:"res/fonts/Minecrafter.ttf"
+    // Font_Minecrafter3:"res/fonts/Minecrafter3.ttf"
 };
 
 var g_resources = [];
