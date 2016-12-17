@@ -116,12 +116,12 @@ var PlayScene = cc.Scene.extend({
     },
 
     onTouchesEnded:function () {
-        cc.log("touch");
         this._node.m_ActionLayerPlayScene.m_pixelObj.flap();
     },
     update: function (dt) {
         // chipmunk step
         this.space.step(dt);
+        this.m_ActionLayerPlayScene.m_pixelObj.update();
     },
 
     addOverLayer: function () {

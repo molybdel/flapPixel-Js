@@ -6,10 +6,10 @@ var Pixel = function (_layer) {
     // PlayScene:ActionLayer
     this.layer = _layer;
 
-    this.m_pixel = new cc.PhysicsSprite(res.Pixel);
-    this.layer.addChild(this.m_pixel);
+    this.sp_pixel = new cc.PhysicsSprite(res.Pixel);
+    this.layer.addChild(this.sp_pixel);
     var winSize = cc.director.getWinSize();
-    var contentSize = this.m_pixel.getContentSize();
+    var contentSize = this.sp_pixel.getContentSize();
     // 2. init the runner physic body
     this.body = new cp.Body(1, cp.momentForBox(1, contentSize.width, contentSize.height));
     //3. set the position of the runner
@@ -24,20 +24,21 @@ var Pixel = function (_layer) {
     //7. add shape to space
     this.layer.space.addShape(this.shape);
     //8. set body to the physic sprite
-    this.m_pixel.setBody(this.body);
+    this.sp_pixel.setBody(this.body);
 
     this.update = function () {
         cc.log("update pixel!");
     };
     this.flap = function () {
-        // this.body.applyImpulse(cp.v(0, 500), cp.v(0, 0));
-        this.body.setVel(cp.v(0,500));
-
-        // this.scheduleOnce(this.fall,.1,"fall");
+        this.body.setVel(cp.v(0, 500));
         // cc.director.getScheduler().unscheduleAllForTarget(this);
         // cc.director.getScheduler().scheduleCallbackForTarget(this, this.fall, .3, 0);
     };
-    this.fall = function () {
-        // this.body.applyImpulse(cp.v(0, 0), cp.v(0, 0));
+    this.update = function () {
+        if (this.body.getVel().y >= 0) {
+            this.body.setAngVel (10);
+            return;
+        }
+        this.body.setAngVel (-10);
     }
 };
