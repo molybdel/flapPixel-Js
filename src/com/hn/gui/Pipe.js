@@ -4,4 +4,6 @@
 var Pipe = function (_layer) {
     this.layer = _layer;
 
+    this.spBottomPipe =  new cc.PhysicsSprite(res.Pipe);
+
 }
