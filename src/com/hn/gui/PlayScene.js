@@ -24,8 +24,9 @@ var BgLayerPlayScene = cc.Layer.extend({
 });
 
 var ActionLayer = cc.Layer.extend({
-    m_pixelObj :null,
-    space:null,
+    m_pixelObj: null,
+    space: null,
+    testPipe: null,
     ctor: function (space) {
         this._super();
         this.space = space;
@@ -34,6 +35,7 @@ var ActionLayer = cc.Layer.extend({
     init: function () {
         this._super();
         this.m_pixelObj = new Pixel(this);
+        this.testPipe = new Pipe(this);
     }
 });
 
@@ -108,14 +110,14 @@ var PlayScene = cc.Scene.extend({
 
     },
 
-    registerTouchListener : function () {
+    registerTouchListener: function () {
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ALL_AT_ONCE,
             onTouchesEnded: this.onTouchesEnded
         }, this);
     },
 
-    onTouchesEnded:function () {
+    onTouchesEnded: function () {
         this._node.m_ActionLayerPlayScene.m_pixelObj.flap();
     },
     update: function (dt) {
@@ -133,7 +135,7 @@ var PlayScene = cc.Scene.extend({
         //1. new space object
         this.space = new cp.Space();
         //2. setup the  Gravity
-        this.space.gravity = cp.v(0, -1500);
+        this.space.gravity = cp.v(0, s_gravity);
 
         // 3. set up Walls
         var wallBottom = new cp.SegmentShape(this.space.staticBody,
@@ -141,6 +143,6 @@ var PlayScene = cc.Scene.extend({
             cp.v(4294967295, g_groundHeight),// MAX INT:4294967295
             0);// thickness of wall
         wallBottom.setElasticity(1);
-        this.space.addStaticShape(wallBottom);
+        // this.space.addStaticShape(wallBottom);
     }
 });

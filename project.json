@@ -17,6 +17,7 @@
         "src/com/hn/gui/MenuScene.js",
         "src/com/hn/gui/PlayScene.js",
         "src/com/hn/gui/Definitions.js",
-        "src/com/hn/gui/Pixel.js"
+        "src/com/hn/gui/Pixel.js",
+        "src/com/hn/gui/Pipe.js"
     ]
 }
