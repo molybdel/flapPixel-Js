@@ -13,7 +13,9 @@ var Pipe = function (_layer) {
     var bottomSize = this.spBottomPipe.getContentSize();
     this.bottomBody = new cp.Body(Infinity, Infinity);
     this.bottomBody.applyImpulse(cp.v(s_VX_Pipe, 0), cp.v(0, 0));//run speed
-    this.bottomBody.p = cc.p(winSize.width / 2, -bottomSize.height / 3);
+    var randomY = getRandomInt(-Math.floor(bottomSize.height / 4), Math.floor(bottomSize.height / 3));
+    cc.log("randomY = " + randomY);
+    this.bottomBody.p = cc.p(winSize.width, randomY);
     // this.bottomBody.applyForce(cp.v(0, -s_gravity), cp.v(0, 0));
     // this.layer.space.addBody(this.bottomBody);
     this.bottomShape = new cp.BoxShape(this.bottomBody, bottomSize.width - 14, bottomSize.height);
