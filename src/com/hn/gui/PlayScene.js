@@ -26,7 +26,7 @@ var BgLayerPlayScene = cc.Layer.extend({
 var ActionLayer = cc.Layer.extend({
     m_pixelObj: null,
     space: null,
-    testPipe: null,
+    m_pipeObj: null,
     ctor: function (space) {
         this._super();
         this.space = space;
@@ -35,7 +35,15 @@ var ActionLayer = cc.Layer.extend({
     init: function () {
         this._super();
         this.m_pixelObj = new Pixel(this);
-        this.testPipe = new Pipe(this);
+        this.m_pipeObj = new Pipe(this);
+    },
+    removePipe: function () {
+        this.m_pipeObj = null;
+    },
+    update: function (dt) {
+        this.m_pixelObj.update();
+        if (this.m_pipeObj)
+            this.m_pipeObj.update();
     }
 });
 
@@ -123,7 +131,7 @@ var PlayScene = cc.Scene.extend({
     update: function (dt) {
         // chipmunk step
         this.space.step(dt);
-        this.m_ActionLayerPlayScene.m_pixelObj.update();
+        this.m_ActionLayerPlayScene.update();
     },
 
     addOverLayer: function () {

@@ -26,9 +26,6 @@ var Pixel = function (_layer) {
     //8. set body to the physic sprite
     this.sp_pixel.setBody(this.body);
 
-    this.update = function () {
-        cc.log("update pixel!");
-    };
     this.flap = function () {
         this.body.setVel(cp.v(0, 500));
         // cc.director.getScheduler().unscheduleAllForTarget(this);

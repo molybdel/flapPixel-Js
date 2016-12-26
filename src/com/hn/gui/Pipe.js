@@ -23,8 +23,39 @@ var Pipe = function (_layer) {
     // this.bottomShape.setFriction(1);
     this.layer.space.addShape(this.bottomShape);
     this.spBottomPipe.setBody(this.bottomBody);
+    this.bottomBody.setVel(cp.v(100, 0));
+
+
+    this.spTopPipe = new cc.PhysicsSprite(res.Pipe);
+    this.layer.addChild(this.spTopPipe);
+
+    var topSize = this.spTopPipe.getContentSize();
+    this.topBody = new cp.Body(Infinity, Infinity);
+    this.topBody.applyImpulse(cp.v(s_VX_Pipe, 0), cp.v(0, 0));//run speed
+    this.topBody.p = cc.p(this.bottomBody.p.x, this.bottomBody.p.y + bottomSize.height / 2 + topSize.height / 2 + 220);
+
+    this.topShape = new cp.BoxShape(this.topBody, topSize.width - 14, topSize.height);
+    this.layer.space.addShape(this.topShape);
+    this.spTopPipe.setBody(this.topBody);
 
     this.moveFinish = function () {
-        this.removeChild(this.spBottomPipe);
+        this.removeFromParent();
+    };
+    this.removeFromParent = function () {
+        this.layer.space.removeShape(this.topShape);
+        this.topShape = null;
+        this.layer.space.removeShape(this.bottomShape);
+        this.bottomShape = null;
+        this.spTopPipe.removeFromParent();
+        this.spBottomPipe.removeFromParent();
+        this.layer.removePipe(this);
+    };
+    this.update = function () {
+        if (this.bottomBody.getPos().x > -this.spBottomPipe.getContentSize().width / 2 + 10) {
+            this.bottomBody.getPos().x += s_VX_Pipe / 60;
+            this.topBody.getPos().x = this.bottomBody.getPos().x;
+            return;
+        }
+        this.moveFinish();
     }
 };
