@@ -27,6 +27,7 @@ var ActionLayer = cc.Layer.extend({
     m_pixelObj: null,
     space: null,
     m_pipeObj: null,
+    m_list_pipe: [],
     ctor: function (space) {
         this._super();
         this.space = space;
@@ -35,15 +36,31 @@ var ActionLayer = cc.Layer.extend({
     init: function () {
         this._super();
         this.m_pixelObj = new Pixel(this);
-        this.m_pipeObj = new Pipe(this);
+        this.m_list_pipe.push(new Pipe(this));
+        // this.m_pipeObj = new Pipe(this);
+        this.schedule(this.addPipe, 2, cc.REPEAT_FOREVER);
+        this.scheduleUpdate();
     },
     removePipe: function () {
-        this.m_pipeObj = null;
+        var a_pipe = this.m_list_pipe.shift();
+        // a_pipe = null;
+        // this.m_pipeObj = null;
     },
+
     update: function (dt) {
         this.m_pixelObj.update();
-        if (this.m_pipeObj)
-            this.m_pipeObj.update();
+        var i, aPipe, lPpLen = this.m_list_pipe.length;
+        for (i = 0; i < lPpLen; i++) {
+            aPipe = this.m_list_pipe[i];
+            if (aPipe != null) {
+                aPipe.update();
+            }
+        }
+        /*if (this.m_pipeObj)
+         this.m_pipeObj.update();*/
+    },
+    addPipe: function () {
+        this.m_list_pipe.push(new Pipe(this));
     }
 });
 
@@ -131,7 +148,7 @@ var PlayScene = cc.Scene.extend({
     update: function (dt) {
         // chipmunk step
         this.space.step(dt);
-        this.m_ActionLayerPlayScene.update();
+        // this.m_ActionLayerPlayScene.update();
     },
 
     addOverLayer: function () {

@@ -9,4 +9,6 @@ var eObjectBitmask = {
 var g_groundHeight = 100;
 var g_runnerStartX = 80;
 var s_gravity = -1500;
-var s_VX_Pipe = -120;
+// velocity pixel/frame
+var s_VX_Pipe = -2;
+var s_VX_Pipe_2 = -2;
